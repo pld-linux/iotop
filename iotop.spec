@@ -1,15 +1,17 @@
 Summary:	Top like utility for I/O
-Summary(pl.UTF-8):Narzędzie podobne do topa dla I/O
+Summary(pl.UTF-8):	Narzędzie podobne do topa dla I/O
 Name:		iotop
 Version:	0.1
-Release:	0.1
+Release:	1
 License:	GPLv2
 Group:		Applications/System
 Source0:	http://guichaz.free.fr/misc/%{name}.py
 # Source0-md5:	ed93de5cfc193e62c5ab0101fb8f61c1
-Patch0:		xterm-color-fix.patch
+Patch0:		%{name}-ncurses.patch
 URL:		http://guichaz.free.fr/misc/#iotop
-Requires:	python
+%pyrequires_eq	python-modules
+BuildRequires:	python-devel
+Requires:	uname(release) >= 2.6.20
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -20,15 +22,18 @@ with a top like UI used to show of behalf of which process is the I/O
 going on.
 
 %prep
-cp -p %{SOURCE0} .
+%setup -q -c -T
+install %{SOURCE0} .
 %patch0 -p0 -b .xterm-color
 
 %build
 
 %install
 rm -rf $RPM_BUILD_ROOT
+
 install -d $RPM_BUILD_ROOT%{_bindir}
-install -p iotop.py $RPM_BUILD_ROOT%{_bindir}/iotop
+
+install iotop.py $RPM_BUILD_ROOT%{_bindir}/iotop
 
 %clean
 rm -rf $RPM_BUILD_ROOT
