@@ -2,7 +2,7 @@ Summary:	Top like utility for I/O
 Summary(pl.UTF-8):	Narzędzie podobne do topa dla I/O
 Name:		iotop
 Version:	0.1
-Release:	1
+Release:	2
 License:	GPLv2
 Group:		Applications/System
 Source0:	http://guichaz.free.fr/misc/%{name}.py
@@ -11,6 +11,7 @@ Patch0:		%{name}-ncurses.patch
 URL:		http://guichaz.free.fr/misc/#iotop
 %pyrequires_eq	python-modules
 BuildRequires:	python-devel
+Requires:	python >= 1:2.5
 Requires:	uname(release) >= 2.6.20
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -23,16 +24,12 @@ going on.
 
 %prep
 %setup -q -c -T
-install %{SOURCE0} .
+cp -a %{SOURCE0} .
 %patch0 -p0 -b .xterm-color
-
-%build
 
 %install
 rm -rf $RPM_BUILD_ROOT
-
 install -d $RPM_BUILD_ROOT%{_bindir}
-
 install iotop.py $RPM_BUILD_ROOT%{_bindir}/iotop
 
 %clean
