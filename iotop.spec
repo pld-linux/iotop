@@ -8,8 +8,9 @@ Group:		Applications/System
 Source0:	http://guichaz.free.fr/iotop/files/iotop-0.2.tar.bz2
 # Source0-md5:	b506e34c7b292f7bb7111b9ed67f68ea
 URL:		http://guichaz.free.fr/iotop/
-%pyrequires_eq	python-modules
 BuildRequires:	python-devel
+BuildRequires:	rpm-pythonprov
+%pyrequires_eq	python-modules
 Requires:	python >= 1:2.5
 Requires:	uname(release) >= 2.6.20
 BuildArch:	noarch
