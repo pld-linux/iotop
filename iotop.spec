@@ -3,9 +3,9 @@ Summary(pl.UTF-8):	Narzędzie podobne do topa dla I/O
 Name:		iotop
 Version:	0.2
 Release:	2
-License:	GPLv2
+License:	GPL v2
 Group:		Applications/System
-Source0:	http://guichaz.free.fr/iotop/files/iotop-0.2.tar.bz2
+Source0:	http://guichaz.free.fr/iotop/files/%{name}-%{version}.tar.bz2
 # Source0-md5:	b506e34c7b292f7bb7111b9ed67f68ea
 URL:		http://guichaz.free.fr/iotop/
 BuildRequires:	python-devel
@@ -21,6 +21,12 @@ Linux has always been able to show how much I/O was going on (the bi
 and bo columns of the vmstat 1 command). iotop is a Python program
 with a top like UI used to show of behalf of which process is the I/O
 going on.
+
+%description -l pl.UTF-8
+Linux od zawsze był w stanie pokazać zużycie I/O (kolumny bi i bo
+polecenia vmstat 1). iotop jest napisanym w języku Python narzędziem z
+interfejsem zbliżonym do top wyświetlającym zużycie I/O poszczególnych
+procesów.
 
 %prep
 %setup -q
