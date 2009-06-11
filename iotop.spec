@@ -24,9 +24,10 @@ with a top like UI used to show of behalf of which process is the I/O
 going on.
 
 %description -l hu.UTF-8
-A Linux mindig lehetőséget nyújt, hogy mennyi I/O művelet zajlik (a
-bi és a bo oszlopa a vmstat 1 parancsnak). iotop egy Python program,
-top-szerű felülettel, amely a processzek I/O műveleteit mutatja.
+A Linux mindig biztosította a lehetőségét annak, hogy figyelemmel
+kövesd, mennyi I/O művelet zajlik (a bi és a bo oszlopa a vmstat 1
+parancsnak). iotop egy Python program, top-szerű felülettel, amely a
+processzek I/O műveleteit mutatja.
 
 %description -l pl.UTF-8
 Linux od zawsze był w stanie pokazać zużycie I/O (kolumny bi i bo
