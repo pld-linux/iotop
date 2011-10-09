@@ -12,7 +12,12 @@ URL:		http://guichaz.free.fr/iotop/
 BuildRequires:	python-devel
 BuildRequires:	rpm-pythonprov
 %pyrequires_eq	python-modules
+%if "%{py_ver}" >= "2.5"
 Requires:	python >= 1:2.5
+%else
+Requires:	python >= 1:2.4
+Requires:	python-ctypes
+%endif
 Requires:	uname(release) >= 2.6.20
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -39,17 +44,16 @@ procesów.
 %setup -q
 
 %build
-python ./setup.py build
+%{__python} setup.py build
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_mandir}/man1
-
-python ./setup.py install \
+%{__python} setup.py install \
         --optimize 2 \
         --root=$RPM_BUILD_ROOT
 
-install iotop.1 $RPM_BUILD_ROOT%{_mandir}/man1
+cp -p iotop.1 $RPM_BUILD_ROOT%{_mandir}/man1
 
 %py_ocomp $RPM_BUILD_ROOT%{py_sitescriptdir}
 %py_comp $RPM_BUILD_ROOT%{py_sitescriptdir}
@@ -62,6 +66,8 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc NEWS THANKS
 %attr(755,root,root) %{_bindir}/iotop
-%{py_sitescriptdir}/iotop
-%{py_sitescriptdir}/*.egg-info
 %{_mandir}/man1/iotop.1*
+%{py_sitescriptdir}/iotop
+%if "%{py_ver}" > "2.4"
+%{py_sitescriptdir}/*.egg-info
+%endif
