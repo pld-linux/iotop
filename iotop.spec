@@ -11,8 +11,9 @@ Source0:	http://guichaz.free.fr/iotop/files/%{name}-%{version}.tar.bz2
 URL:		http://guichaz.free.fr/iotop/
 BuildRequires:	python-devel >= 1:2.7
 BuildRequires:	rpm-pythonprov
+BuildRequires:	rpmbuild(macros) >= 1.219
 Requires:	python >= 1:2.7
-Requires:	python-modules
+Requires:	python-modules >= 1:2.7
 Requires:	uname(release) >= 2.6.20
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -30,10 +31,10 @@ parancsnak). iotop egy Python program, top-szerű felülettel, amely a
 processzek I/O műveleteit mutatja.
 
 %description -l pl.UTF-8
-Linux od zawsze był w stanie pokazać zużycie I/O (kolumny bi i bo
-polecenia vmstat 1). iotop jest napisanym w języku Python narzędziem z
-interfejsem zbliżonym do top wyświetlającym zużycie I/O poszczególnych
-procesów.
+Linux od zawsze był w stanie pokazać ilośc wykonywanych operacji we/wy
+(kolumny bi i bo polecenia vmstat 1). iotop jest napisanym w języku
+Python narzędziem z interfejsem zbliżonym do programu top,
+wyświetlającym, dla których procesów wykonywane są operacje we/wy.
 
 %prep
 %setup -q
@@ -60,4 +61,4 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/iotop
 %{_mandir}/man8/iotop.8*
 %{py_sitescriptdir}/iotop
-%{py_sitescriptdir}/*.egg-info
+%{py_sitescriptdir}/iotop-%{version}-py*.egg-info
