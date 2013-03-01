@@ -2,22 +2,17 @@ Summary:	Top like utility for I/O
 Summary(hu.UTF-8):	Top-szerű program I/O-hoz
 Summary(pl.UTF-8):	Narzędzie podobne do topa dla I/O
 Name:		iotop
-Version:	0.4.4
+Version:	0.5
 Release:	1
 License:	GPL v2
 Group:		Applications/System
 Source0:	http://guichaz.free.fr/iotop/files/%{name}-%{version}.tar.bz2
-# Source0-md5:	cdd38b276cbf238676f5d2bcf098ba9c
+# Source0-md5:	b0846ad976f41bca2813f7f8a73fef31
 URL:		http://guichaz.free.fr/iotop/
-BuildRequires:	python-devel
+BuildRequires:	python-devel >= 1:2.7
 BuildRequires:	rpm-pythonprov
-%pyrequires_eq	python-modules
-%if "%{py_ver}" >= "2.5"
-Requires:	python >= 1:2.5
-%else
-Requires:	python >= 1:2.4
-Requires:	python-ctypes
-%endif
+Requires:	python >= 1:2.7
+Requires:	python-modules
 Requires:	uname(release) >= 2.6.20
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -48,12 +43,9 @@ procesów.
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{_mandir}/man1
 %{__python} setup.py install \
         --optimize 2 \
         --root=$RPM_BUILD_ROOT
-
-cp -p iotop.1 $RPM_BUILD_ROOT%{_mandir}/man1
 
 %py_ocomp $RPM_BUILD_ROOT%{py_sitescriptdir}
 %py_comp $RPM_BUILD_ROOT%{py_sitescriptdir}
@@ -66,8 +58,6 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc NEWS THANKS
 %attr(755,root,root) %{_bindir}/iotop
-%{_mandir}/man1/iotop.1*
+%{_mandir}/man8/iotop.8*
 %{py_sitescriptdir}/iotop
-%if "%{py_ver}" > "2.4"
 %{py_sitescriptdir}/*.egg-info
-%endif
