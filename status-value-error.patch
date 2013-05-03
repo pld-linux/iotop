@@ -1,0 +1,14 @@
+diff -uNr iotop-0.5.old/iotop/data.py iotop-0.5/iotop/data.py
+--- iotop-0.5.old/iotop/data.py	2013-02-03 19:50:02.000000000 +0100
++++ iotop-0.5/iotop/data.py	2013-05-03 21:11:06.116240158 +0200
+@@ -195,8 +195,8 @@
+         for line in open('/proc/%d/status' % pid):
+             key, value = line.split(':\t', 1)
+             result_dict[key] = value.strip()
+-    except IOError:
+-        pass  # No such process
++    except (IOError, ValueError):
++        pass  # No such process or unexpected line format in status file
+     return result_dict
+ 
+ 
