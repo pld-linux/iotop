@@ -2,12 +2,12 @@ Summary:	Top like utility for I/O
 Summary(hu.UTF-8):	Top-szerű program I/O-hoz
 Summary(pl.UTF-8):	Narzędzie podobne do topa dla I/O
 Name:		iotop
-Version:	0.5
-Release:	2
+Version:	0.6
+Release:	1
 License:	GPL v2
 Group:		Applications/System
 Source0:	http://guichaz.free.fr/iotop/files/%{name}-%{version}.tar.bz2
-# Source0-md5:	b0846ad976f41bca2813f7f8a73fef31
+# Source0-md5:	5ef9456b26d7694abf3101a72e1e0d1d
 Patch0:		status-value-error.patch
 URL:		http://guichaz.free.fr/iotop/
 BuildRequires:	python-devel >= 1:2.7
@@ -60,7 +60,7 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc NEWS THANKS
-%attr(755,root,root) %{_bindir}/iotop
+%attr(755,root,root) %{_sbindir}/iotop
 %{_mandir}/man8/iotop.8*
 %{py_sitescriptdir}/iotop
 %{py_sitescriptdir}/iotop-%{version}-py*.egg-info
