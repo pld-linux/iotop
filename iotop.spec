@@ -3,18 +3,19 @@ Summary(hu.UTF-8):	Top-szerű program I/O-hoz
 Summary(pl.UTF-8):	Narzędzie podobne do topa dla I/O
 Name:		iotop
 Version:	0.6
-Release:	1
+Release:	2
 License:	GPL v2
 Group:		Applications/System
 Source0:	http://guichaz.free.fr/iotop/files/%{name}-%{version}.tar.bz2
 # Source0-md5:	5ef9456b26d7694abf3101a72e1e0d1d
 Patch0:		status-value-error.patch
+Patch1:		python3.patch
 URL:		http://guichaz.free.fr/iotop/
-BuildRequires:	python-devel >= 1:2.7
+BuildRequires:	python3-devel
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.219
-Requires:	python >= 1:2.7
-Requires:	python-modules >= 1:2.7
+Requires:	python3
+Requires:	python3-modules
 Requires:	uname(release) >= 2.6.20
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -40,19 +41,19 @@ wyświetlającym, dla których procesów wykonywane są operacje we/wy.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 %build
-%{__python} setup.py build
+%py3_build
 
 %install
 rm -rf $RPM_BUILD_ROOT
-%{__python} setup.py install \
-        --optimize 2 \
-        --root=$RPM_BUILD_ROOT
 
-%py_ocomp $RPM_BUILD_ROOT%{py_sitescriptdir}
-%py_comp $RPM_BUILD_ROOT%{py_sitescriptdir}
-%py_postclean
+install -d $RPM_BUILD_ROOT%{_sbindir}
+
+%py3_install
+
+%{__mv} $RPM_BUILD_ROOT{%{_bindir},%{_sbindir}}/iotop
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -62,5 +63,5 @@ rm -rf $RPM_BUILD_ROOT
 %doc NEWS THANKS
 %attr(755,root,root) %{_sbindir}/iotop
 %{_mandir}/man8/iotop.8*
-%{py_sitescriptdir}/iotop
-%{py_sitescriptdir}/iotop-%{version}-py*.egg-info
+%{py3_sitescriptdir}/iotop
+%{py3_sitescriptdir}/iotop-%{version}-py*.egg-info
