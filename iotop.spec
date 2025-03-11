@@ -3,7 +3,7 @@ Summary(hu.UTF-8):	Top-szerű program I/O-hoz
 Summary(pl.UTF-8):	Narzędzie podobne do topa dla I/O
 Name:		iotop
 Version:	0.6
-Release:	2
+Release:	3
 License:	GPL v2
 Group:		Applications/System
 Source0:	http://guichaz.free.fr/iotop/files/%{name}-%{version}.tar.bz2
