@@ -1,0 +1,27 @@
+Don't crash with UnicodeDecodeError on non-UTF-8 bytes in /proc/PID/cmdline
+and /proc/PID/status (both user-controlled).
+
+Upstream commits:
+https://repo.or.cz/iotop.git/commit/443737ec620a699286b9b2e44dbcaac53f553812
+https://repo.or.cz/iotop.git/commit/4b2e1aa2464cfc4a29c9565c9e143b52ef8e4848
+
+--- iotop-0.6.orig/iotop/data.py	2026-10-29 00:39:54.816695809 +0100
++++ iotop-0.6/iotop/data.py	2026-10-29 00:40:00.067147477 +0100
+@@ -192,7 +192,7 @@
+ def parse_proc_pid_status(pid):
+     result_dict = {}
+     try:
+-        for line in open('/proc/%d/status' % pid):
++        for line in open('/proc/%d/status' % pid, errors='replace'):
+             key, value = line.split(':\t', 1)
+             result_dict[key] = value.strip()
+     except (IOError, ValueError):
+@@ -285,7 +285,7 @@
+     def get_cmdline(self):
+         # A process may exec, so we must always reread its cmdline
+         try:
+-            proc_cmdline = open('/proc/%d/cmdline' % self.pid)
++            proc_cmdline = open('/proc/%d/cmdline' % self.pid, errors='replace')
+             cmdline = proc_cmdline.read(4096)
+         except IOError:
+             return '{no such process}'
